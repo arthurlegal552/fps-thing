@@ -123,26 +123,21 @@
 
         let mixer;
 
-        const loader = new THREE.GLTFLoader();
-        loader.load('animated_pistol.glb', function(gltf) {
-            const model = gltf.scene;
-           const offset = new THREE.Vector3(0, 1, -5); // Example offset
-           const modelWorldPosition = new THREE.Vector3();
-           model.getWorldPosition(modelWorldPosition);
-           const cameraPosition = modelWorldPosition.clone().add(offset);
-           camera.position.copy(cameraPosition);
-            camera.add(model);
+    const loader = new THREE.GLTFLoader();
+    loader.load('animated_pistol.glb', function(gltf) {
+        const model = gltf.scene;
+        model.position.set(0.4, -0.5, -1); // Posição relativa à câmera
+        model.scale.set(1, 1, 1); // Ajuste se necessário
+        camera.add(model);
 
-            camera.lookAt(modelWorldPosition);
-
-            mixer = new THREE.AnimationMixer(model);
-            const clip = THREE.AnimationClip.findByName(gltf.animations, 'Animation') || gltf.animations[0];
-            const action = mixer.clipAction(clip);
-            action.play();
-            action.loop = THREE.LoopRepeat;
-        }, undefined, function(error) {
-            console.error('Erro ao carregar o modelo:', error);
-        });
+        mixer = new THREE.AnimationMixer(model);
+        const clip = THREE.AnimationClip.findByName(gltf.animations, 'Animation') || gltf.animations[0];
+        const action = mixer.clipAction(clip);
+        action.play();
+        action.loop = THREE.LoopRepeat;
+    }, undefined, function(error) {
+        console.error('Erro ao carregar o modelo:', error);
+    });
 
         function animate() {
             requestAnimationFrame(animate);
