@@ -126,9 +126,14 @@
         const loader = new THREE.GLTFLoader();
         loader.load('animated_pistol.glb', function(gltf) {
             const model = gltf.scene;
-            model.position.set(0.3, -0.3, -0.5);
-            camera.lookAt(model)
+           const offset = new THREE.Vector3(0, 1, -5); // Example offset
+           const modelWorldPosition = new THREE.Vector3();
+           model.getWorldPosition(modelWorldPosition);
+           const cameraPosition = modelWorldPosition.clone().add(offset);
+           camera.position.copy(cameraPosition);
             camera.add(model);
+
+            camera.lookAt(modelWorldPosition);
 
             mixer = new THREE.AnimationMixer(model);
             const clip = THREE.AnimationClip.findByName(gltf.animations, 'Animation') || gltf.animations[0];
