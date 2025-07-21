@@ -127,6 +127,7 @@
         loader.load('animated_pistol.glb', function(gltf) {
             const model = gltf.scene;
             model.position.set(0.3, -0.3, -0.5);
+            camera.lookAt(model)
             camera.add(model);
 
             mixer = new THREE.AnimationMixer(model);
