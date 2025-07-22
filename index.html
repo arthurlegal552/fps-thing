@@ -127,9 +127,9 @@
     const loader = new THREE.GLTFLoader();
     loader.load('fps_pistol_animations.glb', function(gltf) {
         const model = gltf.scene;
-        model.position.set(0.4, -0.5, -1); // Posição relativa à câmera
-        model.rotation.set(1, 1, 1)
-        model.scale.set(1, 1, 1); // Ajuste se necessário
+        model.position.set(0.2, -0.3, -0.5);
+        model.scale.set(0.2, 0.2, 0.2);
+        model.rotation.set(THREE.MathUtils.degToRad(-90), 0, 0);
         camera.add(model);
 
         mixer = new THREE.AnimationMixer(model);
