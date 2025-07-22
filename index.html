@@ -128,6 +128,7 @@
     loader.load('fps_pistol_animations.glb', function(gltf) {
         const model = gltf.scene;
         model.position.set(0.4, -0.5, -1); // Posição relativa à câmera
+        model.rotation.set(1, 1, 1)
         model.scale.set(1, 1, 1); // Ajuste se necessário
         camera.add(model);
 
