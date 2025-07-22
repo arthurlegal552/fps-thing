@@ -132,7 +132,7 @@
         camera.add(model);
 
         mixer = new THREE.AnimationMixer(model);
-        const clip = THREE.AnimationClip.findByName(gltf.animations, 'Animation') || gltf.animations[0];
+        const clip = THREE.AnimationClip.findByName(gltf.animations, 'Armature|FPS_Pistol_Fire') || gltf.animations[0];
         const action = mixer.clipAction(clip);
         action.play();
         action.loop = THREE.LoopRepeat;
