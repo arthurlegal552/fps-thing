@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Controlador 3ª Pessoa - Three.js + Mixamo</title>
   <style>
     body { margin: 0; overflow: hidden; }
@@ -10,9 +10,9 @@
 </head>
 <body>
   <script type="module">
-    import * as THREE from './js/three.min.js';
-    import { OrbitControls } from './js/OrbitControls.js';
-    import { FBXLoader } from './js/FBXLoader.js';
+    import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.module.js';
+    import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.160.1/examples/jsm/controls/OrbitControls.js';
+    import { FBXLoader } from 'https://cdn.jsdelivr.net/npm/three@0.160.1/examples/jsm/loaders/FBXLoader.js';
 
     let scene, camera, renderer, clock;
     let mixer, controls;
@@ -35,12 +35,10 @@
 
       clock = new THREE.Clock();
 
-      // Luz
       const light = new THREE.DirectionalLight(0xffffff, 1);
       light.position.set(5, 10, 7.5);
       scene.add(light);
 
-      // Chão
       const floor = new THREE.Mesh(
         new THREE.PlaneGeometry(100, 100),
         new THREE.MeshStandardMaterial({ color: 0x228B22 })
@@ -48,11 +46,10 @@
       floor.rotation.x = -Math.PI / 2;
       scene.add(floor);
 
-      // Controles da câmera (desativado por padrão)
       controls = new OrbitControls(camera, renderer.domElement);
       controls.enabled = false;
 
-      // Carregar modelo
+      // Carrega modelo FBX
       const loader = new FBXLoader();
       loader.load('flix.fbx', (fbx) => {
         player = fbx;
@@ -61,14 +58,14 @@
 
         mixer = new THREE.AnimationMixer(player);
 
-        // Carregar animação separada
+        // Carrega animação separada
         loader.load('Walking.fbx', (anim) => {
           const action = mixer.clipAction(anim.animations[0]);
           action.play();
         });
       });
 
-      // Eventos de teclado
+      // Movimentação
       document.addEventListener('keydown', (e) => {
         if (e.code === 'KeyW') move.forward = true;
         if (e.code === 'KeyS') move.back = true;
@@ -106,7 +103,7 @@
         dir.normalize();
         player.position.add(dir.multiplyScalar(speed));
 
-        // Faz a câmera seguir o jogador
+        // Câmera atrás do personagem
         camera.position.lerp(
           new THREE.Vector3(
             player.position.x,
